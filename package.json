@@ -1,0 +1,36 @@
+{
+  "name": "koru",
+  "version": "1.0.0",
+  "description": "A Koru meditation web application.",
+  "type": "cjs",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node -r dotenv/config -r esm server.js",
+    "server": "nodemon -r esm -r dotenv/config server.js",
+    "client": "npm start --prefix client",
+    "debug": "node --inspect -r dotenv/config -r esm server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "dylanpowers <dylandpowers@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.9.21",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
