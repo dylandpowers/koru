@@ -5,8 +5,9 @@
   "type": "cjs",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "start": "node -r dotenv/config -r esm server.js",
+    "build-client": "npm install --prefix client && npm run build --prefix client",
+    "start": "node -r esm server.js",
+    "heroku-postbuild": "npm run build-client",
     "server": "nodemon -r esm -r dotenv/config server.js",
     "client": "npm start --prefix client",
     "debug": "node --inspect -r dotenv/config -r esm server.js",
