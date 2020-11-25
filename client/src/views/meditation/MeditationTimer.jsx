@@ -39,7 +39,7 @@ export default function MeditationTimer({ onFinish }) {
   // play the bowl sound when we first navigate to this page
   useEffect(() => {
     audio.play();
-  }, []);
+  }, [audio]);
 
   function renderer({ minutes, seconds }) {
     return (

@@ -47,7 +47,7 @@ export default function LoginForm() {
    */
   useEffect(() => {
     dispatch(clearError());
-  }, []);
+  }, [dispatch]);
 
   const layout = {
     labelCol: {

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Steps } from 'antd';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 import DashboardWrapper from '../../components/DashboardWrapper';
 import StartPractice from './StartPractice';
@@ -22,7 +22,6 @@ import MeditationTimer from './MeditationTimer';
 import Reflect from './Reflect';
 import Skills from './Skills';
 import Summary from './Summary';
-import { useEffect } from 'react';
 
 const { Step } = Steps;
 
@@ -78,6 +77,10 @@ export default function MeditationPage() {
   function onSkillsFinish(skillsUsed, mindfulAction) {
     dispatch(addSkillsUsed(skillsUsed));
     dispatch(addMindfulAction(mindfulAction));
+    
+    const submitSession = Object.assign({}, session);
+    submitSession.skillsUsed = skillsUsed;
+    submitSession.mindfulAction = mindfulAction;
 
     const config = {
       headers: {
@@ -85,7 +88,7 @@ export default function MeditationPage() {
       }
     };
 
-    axios.post('/sessions/add', session, config)
+    axios.post('/sessions/add', submitSession, config)
       .then(() => updateStep(6))
       .catch((err) => alert(err));
   }
