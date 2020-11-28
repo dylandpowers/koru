@@ -1,5 +1,5 @@
 # koru
-A web application for Koru meditation. Find the site [here](www.korumeditation.com).
+A web application for Koru meditation. Find the site [here](http://www.korumeditation.com).
 
 This website is built with the MERN stack (MongoDB, Express, React, Node.js), and is hosted on [Heroku](https://heroku.com).
 
