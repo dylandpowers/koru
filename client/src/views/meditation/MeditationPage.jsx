@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Steps } from 'antd';
+import { Steps, Button } from 'antd';
+import { RollbackOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import DashboardWrapper from '../../components/DashboardWrapper';
 import StartPractice from './StartPractice';
@@ -24,6 +26,11 @@ import Skills from './Skills';
 import Summary from './Summary';
 
 const { Step } = Steps;
+
+const MarginButton = styled(Button)`
+  margin-left: 10px;
+  max-width: 8vw;
+`;
 
 /**
  * The meditation page which contains the entire meditation flow for performing a meditation.
@@ -132,9 +139,15 @@ export default function MeditationPage() {
   return (
     <DashboardWrapper pageName="meditation">
       <Steps progressDot current={step} size="small">
-        {steps.map((item => <Step key={item.title} title={item.title} />))}
+        {steps.map((item) => <Step key={item.title} title={item.title} />)}
       </Steps>
       {steps[step].content}
+      {step > 0 ? (
+        <MarginButton onClick={() => setStep(step - 1)}>
+          <RollbackOutlined />
+          Back
+        </MarginButton>
+        ) : null}
     </DashboardWrapper>
   );
 }
