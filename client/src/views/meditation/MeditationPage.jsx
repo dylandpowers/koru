@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Steps, Button } from 'antd';
-import { RollbackOutlined } from '@ant-design/icons';
+import { RollbackOutlined, StopOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -27,9 +27,14 @@ import Summary from './Summary';
 
 const { Step } = Steps;
 
-const MarginButton = styled(Button)`
+const BackButton = styled(Button)`
   margin-left: 10px;
-  max-width: 8vw;
+  max-width: 10vw;
+`;
+
+const StopButton = styled(Button)`
+  margin: 10px 0 0 10px;
+  max-width: 10vw;
 `;
 
 /**
@@ -100,7 +105,12 @@ export default function MeditationPage() {
       .catch((err) => alert(err));
   }
 
-  function onRestartClick() {
+  /**
+   * End the current session and return to the beginning. Note that this may be called 
+   * regardless of the step that the user is on, and it will end the session and clear 
+   * any existing data.
+   */
+  function restartSession() {
     dispatch(endSession());
     setStep(0);
   }
@@ -132,7 +142,7 @@ export default function MeditationPage() {
     },
     {
       title: 'Summary',
-      content: <Summary onRestartClick={onRestartClick} />
+      content: <Summary onRestartClick={restartSession} />
     }
   ];
 
@@ -143,11 +153,17 @@ export default function MeditationPage() {
       </Steps>
       {steps[step].content}
       {step > 0 ? (
-        <MarginButton onClick={() => setStep(step - 1)}>
+        <BackButton onClick={() => updateStep(step - 1)}>
           <RollbackOutlined />
           Back
-        </MarginButton>
+        </BackButton>
         ) : null}
+      {step > 0 && step < steps.length - 1 ? (
+        <StopButton onClick={() => restartSession()}>
+          <StopOutlined />
+          End Session
+        </StopButton>
+      ) : null}
     </DashboardWrapper>
   );
 }
