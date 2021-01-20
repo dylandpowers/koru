@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Typography } from 'antd';
 import Countdown, { zeroPad } from 'react-countdown';
@@ -9,7 +9,6 @@ import PausePlayIcon from '../../assets/pause_play.png';
 import Bowl from '../../assets/bowl.mp3';
 import CenteredWrapper from '../../components/CenteredWrapper';
 import ShadowCard from '../../components/ShadowCard';
-import { useEffect } from 'react';
 
 const CenterShadowCard = styled(ShadowCard)`
   text-align: center;
@@ -33,13 +32,33 @@ const PauseIcon = styled.img`
 export default function MeditationTimer({ onFinish }) {
   const lengthInMinutes = useSelector((state) => state.session.lengthInMinutes);
   let countdownRef;
-  var isPaused = false;
+  let isPaused = false;
   const audio = new Audio(Bowl);
 
   // play the bowl sound when we first navigate to this page
   useEffect(() => {
     audio.play();
   }, [audio]);
+
+  useEffect(() => {
+    let wakeLock = null;
+    if ('wakeLock' in navigator) {
+      try {
+        navigator.wakeLock.request()
+          .then((wl) => {
+            wakeLock = wl;
+          });
+      } catch (err) {
+        console.error(`${err.name}, ${err.message}`);
+      }
+    }
+
+    return () => {
+      if (wakeLock) {
+        wakeLock.release();
+      }
+    }
+  }, []);
 
   function renderer({ minutes, seconds }) {
     return (

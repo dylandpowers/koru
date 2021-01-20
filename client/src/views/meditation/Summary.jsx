@@ -41,7 +41,7 @@ export default function Summary({ onRestartClick }) {
     <CenteredWrapper>
       <ShadowCard title="Summary">
         <Typography.Text>
-          Today, you did a <b>{session.isGuided ? 'guided' : 'unguided'}</b> meditation for {session.lengthInMinutes} minutes.
+          Today, you did {session.isGuided ? 'a guided' : 'an unguided'} meditation for {session.lengthInMinutes} minutes.
           <br/>
           {getSkillsSentence()}
           <br/>

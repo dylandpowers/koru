@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import CenteredWrapper from '../../components/CenteredWrapper';
 
 const CenteredButton = styled(Button)`
-  width: 50%;
+  max-width: 400px;
+  overflow-x: ellipsis;
 `;
 
 export default function StartPractice({ onClick }) {
