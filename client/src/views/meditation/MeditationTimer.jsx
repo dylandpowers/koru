@@ -44,7 +44,7 @@ export default function MeditationTimer({ onFinish }) {
     let wakeLock = null;
     if ('wakeLock' in navigator) {
       try {
-        navigator.wakeLock.request()
+        navigator.wakeLock.request('screen')
           .then((wl) => {
             wakeLock = wl;
           });

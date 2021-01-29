@@ -29,12 +29,16 @@ const { Step } = Steps;
 
 const BackButton = styled(Button)`
   margin-left: 10px;
-  max-width: 10vw;
+  width: 100%;
 `;
 
 const StopButton = styled(Button)`
   margin: 10px 0 0 10px;
-  max-width: 10vw;
+  width: 100%;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 130px;
 `;
 
 /**
@@ -55,7 +59,7 @@ export default function MeditationPage() {
   /**
    * Updates the step by both setting the state and updating the global store.
    * 
-   * @param {Number} newStep the step to set
+   * @param {number} newStep the step to set
    */
   function updateStep(newStep) {
     dispatch(setSessionStep(newStep));
@@ -152,18 +156,20 @@ export default function MeditationPage() {
         {steps.map((item) => <Step key={item.title} title={item.title} />)}
       </Steps>
       {steps[step].content}
-      {step > 0 ? (
-        <BackButton onClick={() => updateStep(step - 1)}>
-          <RollbackOutlined />
-          Back
-        </BackButton>
+      <ButtonWrapper>
+        {step > 0 ? (
+          <BackButton onClick={() => updateStep(step - 1)}>
+            <RollbackOutlined />
+            Back
+          </BackButton>
+          ) : null}
+        {step > 0 && step < steps.length - 1 ? (
+          <StopButton onClick={() => restartSession()}>
+            <StopOutlined />
+            End Session
+          </StopButton>
         ) : null}
-      {step > 0 && step < steps.length - 1 ? (
-        <StopButton onClick={() => restartSession()}>
-          <StopOutlined />
-          End Session
-        </StopButton>
-      ) : null}
+      </ButtonWrapper>
     </DashboardWrapper>
   );
 }
