@@ -6,7 +6,11 @@ import CenteredWrapper from '../../../components/CenteredWrapper';
 
 const MarginButton = styled(Button)`
   margin-top: 10px;
-  width: 30%;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const FormWrapper = styled.div`
@@ -42,7 +46,9 @@ export default function Unguided({ onFinish }) {
           <Option value="60">60</Option>
         </Select>
         <MarginButton type="primary" onClick={onClick}>
-          Start
+          <div>
+            Start
+          </div>
         </MarginButton>
       </FormWrapper>
     </CenteredWrapper>
